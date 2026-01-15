@@ -117,8 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ACCOUNT_ID_REQUIRED" xml:space="preserve">
+    <value>O campo accountId é obrigatório.</value>
+  </data>
   <data name="ACCOUNT_NOT_FOUND" xml:space="preserve">
     <value>Conta não encontrada.</value>
+  </data>
+  <data name="AMOUNT_MUST_BE_GREATER_THAN_ZERO" xml:space="preserve">
+    <value>O campo amount deve ser maior que zero.</value>
+  </data>
+  <data name="ENTRY_ALREADY_CREATED" xml:space="preserve">
+    <value>Este lançamento já existe.</value>
+  </data>
+  <data name="IDEMPOTENCY_KEY_REQUIRED" xml:space="preserve">
+    <value>O campo idempotencyKey é obrigatório.</value>
+  </data>
+  <data name="INSUFFICIENT_BALANCE" xml:space="preserve">
+    <value>Saldo insuficiente.</value>
+  </data>
+  <data name="INVALID_ENTRY_TYPE" xml:space="preserve">
+    <value>O campo type deve ser debit (0) ou credit (1).</value>
   </data>
   <data name="NOT_FOUND_ERROR_TITLE" xml:space="preserve">
     <value>Não encontrado.</value>

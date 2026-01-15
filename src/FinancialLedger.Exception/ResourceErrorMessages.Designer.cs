@@ -61,11 +61,65 @@ namespace FinancialLedger.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Field accountId is required..
+        /// </summary>
+        public static string ACCOUNT_ID_REQUIRED {
+            get {
+                return ResourceManager.GetString("ACCOUNT_ID_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Account not found..
         /// </summary>
         public static string ACCOUNT_NOT_FOUND {
             get {
                 return ResourceManager.GetString("ACCOUNT_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Field amount must be greater than zero..
+        /// </summary>
+        public static string AMOUNT_MUST_BE_GREATER_THAN_ZERO {
+            get {
+                return ResourceManager.GetString("AMOUNT_MUST_BE_GREATER_THAN_ZERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a This entry already exists..
+        /// </summary>
+        public static string ENTRY_ALREADY_CREATED {
+            get {
+                return ResourceManager.GetString("ENTRY_ALREADY_CREATED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Field idempotencyKey is required..
+        /// </summary>
+        public static string IDEMPOTENCY_KEY_REQUIRED {
+            get {
+                return ResourceManager.GetString("IDEMPOTENCY_KEY_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Insufficient balance..
+        /// </summary>
+        public static string INSUFFICIENT_BALANCE {
+            get {
+                return ResourceManager.GetString("INSUFFICIENT_BALANCE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Field type must be debit (0) or credit (1)..
+        /// </summary>
+        public static string INVALID_ENTRY_TYPE {
+            get {
+                return ResourceManager.GetString("INVALID_ENTRY_TYPE", resourceCulture);
             }
         }
         

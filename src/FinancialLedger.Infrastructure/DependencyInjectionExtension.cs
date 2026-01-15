@@ -1,5 +1,8 @@
 ﻿using FinancialLedger.Domain.Repositories;
 using FinancialLedger.Domain.Repositories.Account;
+using FinancialLedger.Domain.Repositories.AccountBalance;
+using FinancialLedger.Domain.Repositories.IdempotencyRecords;
+using FinancialLedger.Domain.Repositories.LedgerEntries;
 using FinancialLedger.Infrastructure.DataAccess;
 using FinancialLedger.Infrastructure.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +24,10 @@ public static class DependencyInjectionExtension {
 
   private static void AddRepositories(IServiceCollection services) {
     services.AddScoped<IUnitOfWork, UnitOfWork>();
-    services.AddScoped<IAccountReadOnlyRepository, AccountRepository>();
-    services.AddScoped<IAccountWriteOnlyRepository, AccountRepository>();
+    services.AddScoped<IAccountReadOnlyRepository, AccountsRepository>();
+    services.AddScoped<IAccountWriteOnlyRepository, AccountsRepository>();
+    services.AddScoped<ILedgerEntriesWriteOnlyRepository, LedgerEntriesRespository>();
+    services.AddScoped<IAccountBalanceUpdateOnlyRepository, AccountBalanceRepository>();
+    services.AddScoped<IIdempotencyRecordWriteOnlyRepository, IdempotencyRecordRepository>();
   }
 }

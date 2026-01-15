@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinancialLedger.Infrastructure.DataAccess.Repositories;
 
-public class AccountRepository : IAccountWriteOnlyRepository, IAccountReadOnlyRepository {
+internal class AccountsRepository : IAccountWriteOnlyRepository, IAccountReadOnlyRepository {
   private readonly ApplicationDbContext _dbContext;
 
-  public AccountRepository(ApplicationDbContext dbContext) {
+  public AccountsRepository(ApplicationDbContext dbContext) {
     this._dbContext = dbContext;
   }
 

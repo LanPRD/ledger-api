@@ -1,4 +1,4 @@
-﻿namespace FinancialLedger.Domain.Enums;
+﻿namespace FinancialLedger.Communication.Enums;
 
 public enum LedgerEntryType {
   DEBIT = 0,

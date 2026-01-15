@@ -3,6 +3,7 @@ using System;
 using FinancialLedger.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinancialLedger.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260115163218_FixTableName")]
+    partial class FixTableName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,9 +52,9 @@ namespace FinancialLedger.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("AccountId");
+                    b.HasIndex("AccountId");
 
-                    b.ToTable("AccountBalance");
+                    b.ToTable("AccountBalance", (string)null);
                 });
 
             modelBuilder.Entity("FinancialLedger.Domain.Entities.IdempotencyRecord", b =>
@@ -71,16 +74,12 @@ namespace FinancialLedger.Infrastructure.Migrations
                     b.Property<Guid>("IdempotencyKey")
                         .HasColumnType("uuid");
 
-                    b.Property<long?>("LedgerEntryId")
+                    b.Property<long>("LedgerEntryId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LedgerEntryId")
-                        .IsUnique();
-
-                    b.HasIndex("AccountId", "IdempotencyKey")
-                        .IsUnique();
+                    b.HasIndex("AccountId");
 
                     b.ToTable("IdempotencyRecords");
                 });
@@ -118,8 +117,8 @@ namespace FinancialLedger.Infrastructure.Migrations
             modelBuilder.Entity("FinancialLedger.Domain.Entities.AccountBalance", b =>
                 {
                     b.HasOne("FinancialLedger.Domain.Entities.Account", "Account")
-                        .WithOne()
-                        .HasForeignKey("FinancialLedger.Domain.Entities.AccountBalance", "AccountId")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -134,13 +133,7 @@ namespace FinancialLedger.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FinancialLedger.Domain.Entities.LedgerEntry", "LedgerEntry")
-                        .WithOne()
-                        .HasForeignKey("FinancialLedger.Domain.Entities.IdempotencyRecord", "LedgerEntryId");
-
                     b.Navigation("Account");
-
-                    b.Navigation("LedgerEntry");
                 });
 
             modelBuilder.Entity("FinancialLedger.Domain.Entities.LedgerEntry", b =>

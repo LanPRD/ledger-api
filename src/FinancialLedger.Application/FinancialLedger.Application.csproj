@@ -1,20 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FinancialLedger.Communication\FinancialLedger.Communication.csproj" />
-    <ProjectReference Include="..\FinancialLedger.Domain\FinancialLedger.Domain.csproj" />
-    <ProjectReference Include="..\FinancialLedger.Exception\FinancialLedger.Exception.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\FinancialLedger.Communication\FinancialLedger.Communication.csproj" />
+		<PackageReference Include="FluentValidation" Version="12.1.1" />
+		<ProjectReference Include="..\FinancialLedger.Domain\FinancialLedger.Domain.csproj" />
+		<ProjectReference Include="..\FinancialLedger.Exception\FinancialLedger.Exception.csproj" />
+	</ItemGroup>
 
 </Project>
