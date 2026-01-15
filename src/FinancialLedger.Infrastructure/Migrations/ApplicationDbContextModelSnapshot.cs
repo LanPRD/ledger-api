@@ -35,7 +35,7 @@ namespace FinancialLedger.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 #pragma warning restore 612, 618
         }
