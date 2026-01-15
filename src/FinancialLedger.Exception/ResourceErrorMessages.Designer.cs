@@ -61,6 +61,15 @@ namespace FinancialLedger.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Account not found..
+        /// </summary>
+        public static string ACCOUNT_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("ACCOUNT_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Not found..
         /// </summary>
         public static string NOT_FOUND_ERROR_TITLE {

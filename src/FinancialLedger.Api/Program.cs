@@ -1,4 +1,5 @@
 using FinancialLedger.Api.Filters;
+using FinancialLedger.Application;
 using FinancialLedger.Infrastructure;
 using FinancialLedger.Infrastructure.Migrations;
 using Microsoft.OpenApi;
@@ -14,6 +15,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddMvc(options => options.Filters.Add<ExceptionFilter>());
 
+builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddSwaggerGen(options => {

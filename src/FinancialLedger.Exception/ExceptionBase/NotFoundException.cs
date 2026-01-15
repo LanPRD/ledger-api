@@ -2,7 +2,7 @@
 
 namespace FinancialLedger.Exception.ExceptionBase;
 
-internal class NotFoundException : FinancialLedgerException {
+public class NotFoundException : FinancialLedgerException {
   public override int StatusCode => (int)HttpStatusCode.NotFound;
 
   public NotFoundException(string message) : base(message) { }
