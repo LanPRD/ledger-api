@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FinancialLedger.Api/FinancialLedger.Api.csproj" Id="a3407696-a302-4b9b-97e8-4e2d1e74bc8b" />
+    <Project Path="src/FinancialLedger.Application/FinancialLedger.Application.csproj" Id="bdbc758b-a2cc-42bf-abc8-1e3d94bd0205" />
+    <Project Path="src/FinancialLedger.Communication/FinancialLedger.Communication.csproj" Id="1c1a33db-924d-42c0-b835-18b11bd75940" />
+    <Project Path="src/FinancialLedger.Domain/FinancialLedger.Domain.csproj" Id="2dabde96-5a1e-4daa-9094-edd8e4d792df" />
+    <Project Path="src/FinancialLedger.Exception/FinancialLedger.Exception.csproj" Id="d3803f40-ae10-4034-93c8-3955de517d92" />
+    <Project Path="src/FinancialLedger.Infrastructure/FinancialLedger.Infrastructure.csproj" Id="ba0497e1-0ef7-46a9-9f58-c06cf1935d9c" />
+  </Folder>
+  <Folder Name="/__tests__/" />
+</Solution>
