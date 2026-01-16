@@ -11,4 +11,18 @@ internal class UnitOfWork : IUnitOfWork {
   }
 
   public async Task Commit() => await this._dbContext.SaveChangesAsync();
+
+  public async Task Flush() => await this._dbContext.SaveChangesAsync();
+
+  public async Task ExecuteInTransaction(Func<Task> action) {
+    await using var tx = await this._dbContext.Database.BeginTransactionAsync();
+    try {
+      await action();
+      await this._dbContext.SaveChangesAsync();
+      await tx.CommitAsync();
+    } catch {
+      await tx.RollbackAsync();
+      throw;
+    }
+  }
 }

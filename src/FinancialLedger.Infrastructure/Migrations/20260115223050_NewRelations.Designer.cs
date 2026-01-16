@@ -3,6 +3,7 @@ using System;
 using FinancialLedger.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinancialLedger.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260115223050_NewRelations")]
+    partial class NewRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +38,7 @@ namespace FinancialLedger.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts", (string)null);
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("FinancialLedger.Domain.Entities.AccountBalance", b =>
@@ -51,7 +54,7 @@ namespace FinancialLedger.Infrastructure.Migrations
 
                     b.HasKey("AccountId");
 
-                    b.ToTable("AccountBalance", (string)null);
+                    b.ToTable("AccountBalance");
                 });
 
             modelBuilder.Entity("FinancialLedger.Domain.Entities.IdempotencyRecord", b =>
@@ -82,7 +85,7 @@ namespace FinancialLedger.Infrastructure.Migrations
                     b.HasIndex("AccountId", "IdempotencyKey")
                         .IsUnique();
 
-                    b.ToTable("IdempotencyRecords", (string)null);
+                    b.ToTable("IdempotencyRecords");
                 });
 
             modelBuilder.Entity("FinancialLedger.Domain.Entities.LedgerEntry", b =>
@@ -112,7 +115,7 @@ namespace FinancialLedger.Infrastructure.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("LedgerEntries", (string)null);
+                    b.ToTable("LedgerEntries");
                 });
 
             modelBuilder.Entity("FinancialLedger.Domain.Entities.AccountBalance", b =>

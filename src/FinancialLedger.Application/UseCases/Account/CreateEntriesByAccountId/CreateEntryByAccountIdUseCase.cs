@@ -36,34 +36,13 @@ public class CreateEntryByAccountIdUseCase : ICreateEntryByAccountIdUseCase {
   public async Task<ResponseLedgerEntry> Execute(long accountId, RequestCreateEntry request) {
     this.ValidateRequest(request);
 
-    var idempotency = new IdempotencyRecord {
-      AccountId = accountId,
-      IdempotencyKey = request.IdempotencyKey
-    };
+    LedgerEntry? ledger = null;
 
-    await this._idempotencyRecordWriteRepository.TryAdd(idempotency);
-    var success = false;
+    await this._unitOfWork.ExecuteInTransaction(async () => {
+      ledger = await this.ExecuteInTransaction(accountId, request);
+    });
 
-    if (request.Type == LedgerEntryType.DEBIT) {
-      success = await this._accountBalanceUpdateRepository.TryDebit(accountId, request.Amount);
-    } else {
-      success = await this._accountBalanceUpdateRepository.Credit(accountId, request.Amount);
-    }
-
-    if (!success) {
-      throw new ValidationException(ResourceErrorMessages.INSUFFICIENT_BALANCE);
-    }
-
-    var ledger = this._mapper.Map<LedgerEntry>(request);
-    ledger.AccountId = accountId;
-
-    await this._ledgerEntriesWriteRepository.Add(ledger);
-
-    idempotency.LedgerEntry = ledger;
-
-    await this._unitOfWork.Commit();
-
-    return this._mapper.Map<ResponseLedgerEntry>(ledger);
+    return this._mapper.Map<ResponseLedgerEntry>(ledger!);
   }
 
   private void ValidateRequest(RequestCreateEntry request) {
@@ -74,5 +53,36 @@ public class CreateEntryByAccountIdUseCase : ICreateEntryByAccountIdUseCase {
       var errorMessage = result.Errors.Select(error => error.ErrorMessage).ToList();
       throw new ValidationException(errorMessage[0]);
     }
+  }
+
+  private async Task<LedgerEntry> ExecuteInTransaction(long accountId, RequestCreateEntry request) {
+    var idempotency = new IdempotencyRecord {
+      AccountId = accountId,
+      IdempotencyKey = request.IdempotencyKey
+    };
+
+    await _idempotencyRecordWriteRepository.TryAdd(idempotency);
+    await _unitOfWork.Flush();
+
+    var success = false;
+
+    if (request.Type == LedgerEntryType.DEBIT) {
+      success = await _accountBalanceUpdateRepository.TryDebit(accountId, request.Amount);
+    } else {
+      success = await _accountBalanceUpdateRepository.Credit(accountId, request.Amount);
+    }
+
+    if (!success) {
+      throw new ValidationException(ResourceErrorMessages.INSUFFICIENT_BALANCE);
+    }
+
+    var ledger = _mapper.Map<LedgerEntry>(request);
+    ledger.AccountId = accountId;
+
+    await _ledgerEntriesWriteRepository.Add(ledger);
+
+    idempotency.LedgerEntry = ledger;
+
+    return ledger;
   }
 }

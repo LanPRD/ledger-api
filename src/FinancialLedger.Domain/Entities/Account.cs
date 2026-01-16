@@ -4,4 +4,5 @@ public class Account {
   public long Id { get; set; }
   public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
   public readonly ICollection<LedgerEntry> LedgerEntries = [];
+  public AccountBalance AccountBalance { get; set; } = default!;
 }

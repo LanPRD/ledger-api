@@ -11,8 +11,9 @@ internal class AccountsRepository : IAccountWriteOnlyRepository, IAccountReadOnl
     this._dbContext = dbContext;
   }
 
-  public async Task Add(Account account) {
-    await this._dbContext.Accounts.AddAsync(account);
+  public Task Add(Account account) {
+    this._dbContext.Accounts.Add(account);
+    return Task.CompletedTask;
   }
 
   public async Task Delete(long id) {

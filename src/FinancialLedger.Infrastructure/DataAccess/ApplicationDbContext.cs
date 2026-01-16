@@ -16,7 +16,7 @@ public class ApplicationDbContext : DbContext {
 
     modelBuilder.Entity<AccountBalance>(entity => {
       entity.HasKey(ab => ab.AccountId);
-      entity.HasOne(ab => ab.Account).WithOne().HasForeignKey<AccountBalance>(ab => ab.AccountId);
+      entity.HasOne(ab => ab.Account).WithOne(a => a.AccountBalance).HasForeignKey<AccountBalance>(ab => ab.AccountId);
       entity.Property(ab => ab.Balance).IsRequired();
       entity.Property(ab => ab.UpdatedAt).IsRequired();
     });
