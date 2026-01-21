@@ -7,7 +7,6 @@ public class NotFoundException : FinancialLedgerException {
 
   public NotFoundException(string message) : base(message) { }
 
-
   public override string GetErrorTitle() => ResourceErrorMessages.NOT_FOUND_ERROR_TITLE;
   public override string GetErrorDescription() => this.Message;
 }

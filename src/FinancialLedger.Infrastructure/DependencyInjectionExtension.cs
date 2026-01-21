@@ -5,6 +5,7 @@ using FinancialLedger.Domain.Repositories.IdempotencyRecords;
 using FinancialLedger.Domain.Repositories.LedgerEntries;
 using FinancialLedger.Infrastructure.DataAccess;
 using FinancialLedger.Infrastructure.DataAccess.Repositories;
+using FinancialLedger.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,10 @@ namespace FinancialLedger.Infrastructure;
 public static class DependencyInjectionExtension {
   public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration) {
     DependencyInjectionExtension.AddRepositories(services);
-    DependencyInjectionExtension.AddDbContext(services, configuration);
+
+    if (!configuration.IsTestEnvironment()) {
+      DependencyInjectionExtension.AddDbContext(services, configuration);
+    }
   }
 
   private static void AddDbContext(IServiceCollection services, IConfiguration configuration) {

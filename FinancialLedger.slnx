@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/infra/">
+    <File Path="template.yaml" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/FinancialLedger.Api/FinancialLedger.Api.csproj" Id="a3407696-a302-4b9b-97e8-4e2d1e74bc8b" />
     <Project Path="src/FinancialLedger.Application/FinancialLedger.Application.csproj" Id="bdbc758b-a2cc-42bf-abc8-1e3d94bd0205" />
@@ -7,5 +10,9 @@
     <Project Path="src/FinancialLedger.Exception/FinancialLedger.Exception.csproj" Id="d3803f40-ae10-4034-93c8-3955de517d92" />
     <Project Path="src/FinancialLedger.Infrastructure/FinancialLedger.Infrastructure.csproj" Id="ba0497e1-0ef7-46a9-9f58-c06cf1935d9c" />
   </Folder>
-  <Folder Name="/__tests__/" />
+  <Folder Name="/__tests__/">
+    <Project Path="__tests__/CommonTestUtilities/CommonTestUtilities.csproj" Id="0ee12a22-5fba-4139-ae6b-fa32f13a25be" />
+    <Project Path="__tests__/UseCases.Test/UseCases.Test.csproj" Id="00d1d6b5-b6ce-4045-a7c1-e6d0fe665d08" />
+    <Project Path="__tests__/WebApi.Test/WebApi.Test.csproj" Id="0bf65143-880e-42ea-9c6d-93c981c4bf21" />
+  </Folder>
 </Solution>

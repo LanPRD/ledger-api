@@ -16,6 +16,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\FinancialLedger.Domain\FinancialLedger.Domain.csproj" />
+		<ProjectReference Include="..\FinancialLedger.Exception\FinancialLedger.Exception.csproj" />
 	</ItemGroup>
 
 </Project>

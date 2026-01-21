@@ -1,6 +1,8 @@
 using FinancialLedger.Api.Filters;
+using FinancialLedger.Api.Middleware;
 using FinancialLedger.Application;
 using FinancialLedger.Infrastructure;
+using FinancialLedger.Infrastructure.Extensions;
 using FinancialLedger.Infrastructure.Migrations;
 using Microsoft.OpenApi;
 
@@ -22,6 +24,8 @@ builder.Services.AddSwaggerGen(options => {
   options.SwaggerDoc("v1", new OpenApiInfo { Title = "Financial Ledger", Version = "v1" });
 });
 
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,8 +35,11 @@ if (app.Environment.IsDevelopment()) {
   app.UseSwaggerUI();
 }
 
-// don't do this if de environment = test
-await MigrateDatabase();
+app.UseMiddleware<CultureMiddleware>();
+
+if (!builder.Configuration.IsTestEnvironment()) {
+  await MigrateDatabase();
+}
 
 app.UseHttpsRedirection();
 
@@ -46,3 +53,5 @@ async Task MigrateDatabase() {
   await using var scope = app.Services.CreateAsyncScope();
   await DatabaseMigration.ApplyMigrations(scope.ServiceProvider);
 }
+
+public partial class Program { }

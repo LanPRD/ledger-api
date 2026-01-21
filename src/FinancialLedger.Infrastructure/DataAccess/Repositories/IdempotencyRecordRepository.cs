@@ -15,8 +15,4 @@ internal class IdempotencyRecordRepository : IIdempotencyRecordWriteOnlyReposito
     _dbContext.IdempotencyRecords.Add(record);
     return Task.CompletedTask;
   }
-
-  private DbSet<IdempotencyRecord> GetTable() {
-    return this._dbContext.IdempotencyRecords;
-  }
 }

@@ -15,7 +15,7 @@ public class AccountController : ControllerBase {
   [ProducesResponseType<ResponseError>(StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> CreateAccount([FromServices] ICreateAccountUseCase useCase) {
     var response = await useCase.Execute();
-    return Created($"/account/{response.Id}", response);
+    return Created($"/api/account/{response.Id}", response);
   }
 
   [HttpGet]
@@ -36,6 +36,6 @@ public class AccountController : ControllerBase {
   [ProducesResponseType<ResponseError>(StatusCodes.Status500InternalServerError)]
   public async Task<IActionResult> CreateAccountEntry([FromServices] ICreateEntryByAccountIdUseCase useCase, [FromRoute] long accountId, [FromBody] RequestCreateEntry request) {
     var response = await useCase.Execute(accountId, request);
-    return Created($"/account/entries/${response.Id}", response);
+    return Created($"/api/account/entries/${response.Id}", response);
   }
 }

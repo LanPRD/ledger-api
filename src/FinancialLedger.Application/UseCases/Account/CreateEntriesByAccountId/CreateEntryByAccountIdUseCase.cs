@@ -4,6 +4,7 @@ using FinancialLedger.Communication.Requests;
 using FinancialLedger.Communication.Responses;
 using FinancialLedger.Domain.Entities;
 using FinancialLedger.Domain.Repositories;
+using FinancialLedger.Domain.Repositories.Account;
 using FinancialLedger.Domain.Repositories.AccountBalance;
 using FinancialLedger.Domain.Repositories.IdempotencyRecords;
 using FinancialLedger.Domain.Repositories.LedgerEntries;
@@ -18,23 +19,27 @@ public class CreateEntryByAccountIdUseCase : ICreateEntryByAccountIdUseCase {
   private readonly ILedgerEntriesWriteOnlyRepository _ledgerEntriesWriteRepository;
   private readonly IAccountBalanceUpdateOnlyRepository _accountBalanceUpdateRepository;
   private readonly IIdempotencyRecordWriteOnlyRepository _idempotencyRecordWriteRepository;
+  private readonly IAccountReadOnlyRepository _accountReadRepository;
 
   public CreateEntryByAccountIdUseCase(
     IMapper mapper,
     IUnitOfWork unitOfWork,
     ILedgerEntriesWriteOnlyRepository ledgerEntriesWriteRepository,
     IAccountBalanceUpdateOnlyRepository accountBalanceUpdateRepository,
-    IIdempotencyRecordWriteOnlyRepository idempotencyRecordWriteRepository
+    IIdempotencyRecordWriteOnlyRepository idempotencyRecordWriteRepository,
+    IAccountReadOnlyRepository accountReadRepository
   ) {
     this._mapper = mapper;
     this._unitOfWork = unitOfWork;
     this._ledgerEntriesWriteRepository = ledgerEntriesWriteRepository;
     this._accountBalanceUpdateRepository = accountBalanceUpdateRepository;
     this._idempotencyRecordWriteRepository = idempotencyRecordWriteRepository;
+    this._accountReadRepository = accountReadRepository;
   }
 
   public async Task<ResponseLedgerEntry> Execute(long accountId, RequestCreateEntry request) {
     this.ValidateRequest(request);
+    await this.ValidateAccountExists(accountId);
 
     LedgerEntry? ledger = null;
 
@@ -52,6 +57,14 @@ public class CreateEntryByAccountIdUseCase : ICreateEntryByAccountIdUseCase {
     if (!result.IsValid) {
       var errorMessage = result.Errors.Select(error => error.ErrorMessage).ToList();
       throw new ValidationException(errorMessage[0]);
+    }
+  }
+
+  private async Task ValidateAccountExists(long accountId) {
+    var account = await this._accountReadRepository.GetById(accountId);
+
+    if (account == null) {
+      throw new NotFoundException(ResourceErrorMessages.ACCOUNT_NOT_FOUND);
     }
   }
 
