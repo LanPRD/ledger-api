@@ -482,3 +482,9 @@ $RECYCLE.BIN/
 *.swp
 
 appsettings.Development.json
+
+.aws-sam/
+bin/
+obj/
+*.user
+*.suo
